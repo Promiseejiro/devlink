@@ -9,7 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 export default function Home() {
   const cureentUser: any = useAuth();
   if (cureentUser) {
-    console.log(cureentUser.currentUser.email);
+    // console.log(cureentUser.currentUser.email);
   }
   return (
     <div className="bg-gray-300 ">
