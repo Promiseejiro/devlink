@@ -1,11 +1,16 @@
 "use client";
 import Image from "next/image";
-import Header from "./Components/NavHeader";
-import rec from "../public/asset/rec.svg";
-import subStr from "../public/asset/Subtract.svg";
-import Profile from "./Components/Profile";
-import ProfileDetails from "./Components/ProfileDetails";
+import Header from "../Components/NavHeader";
+import rec from "../../public/asset/rec.svg";
+import subStr from "../../public/asset/Subtract.svg";
+import Profile from "../Components/Profile";
+import CustomizeLink from "../Components/CustomizeLink";
+import { useAuth } from "@/context/AuthContext";
 export default function Home() {
+  const cureentUser: any = useAuth();
+  if (cureentUser) {
+    console.log(cureentUser.currentUser.email);
+  }
   return (
     <div className="bg-gray-300 ">
       <Header active="Profile Details" />
@@ -19,12 +24,11 @@ export default function Home() {
                 src={subStr}
                 className="w-[283px] h-auto absolute top-[10px] left-[10px]"
               />
-              <Profile />
+              <Profile absolute={true} />
             </div>
           </div>
         </div>
-        <ProfileDetails />
-        {/* <CustomizeLink /> */}
+        <CustomizeLink />
       </div>
     </div>
   );

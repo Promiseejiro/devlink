@@ -1,11 +1,14 @@
 "use client";
 import Image from "next/image";
-import Header from "./Components/NavHeader";
-import rec from "../public/asset/rec.svg";
-import subStr from "../public/asset/Subtract.svg";
-import Profile from "./Components/Profile";
-import ProfileDetails from "./Components/ProfileDetails";
+import Header from "../Components/NavHeader";
+import rec from "../../public/asset/rec.svg";
+import subStr from "../../public/asset/Subtract.svg";
+import Profile from "../Components/Profile";
+import ProfileDetails from "../Components/ProfileDetails";
+import { useAuth } from "@/context/AuthContext";
 export default function Home() {
+  const func = useAuth();
+  console.log(func?.currentUser);
   return (
     <div className="bg-gray-300 ">
       <Header active="Profile Details" />
