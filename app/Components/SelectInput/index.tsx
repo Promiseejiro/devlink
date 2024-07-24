@@ -39,7 +39,7 @@ const SelectInput = ({
   };
 
   return (
-    <div className={`bg-white w-full mt-[12px]`} style={{ zIndex: index ? index : 10 }}>
+    <div className={`bg-white w-full mt-[12px]`}>
       <label className="text-[14px] text-dark">{label}</label>
       <div className={`border-solid relative`}>
         <span className="absolute inset-y-0 left-3 my-auto top-[18px] text-[#939393]">
@@ -50,7 +50,10 @@ const SelectInput = ({
           onChange={filterList}
           onClick={() => setShowDropDown(true)}
           onBlur={(e) => {
-            if (dropDownRef.current && !dropDownRef.current.contains(e.relatedTarget as Node)) {
+            if (
+              dropDownRef.current &&
+              !dropDownRef.current.contains(e.relatedTarget as Node)
+            ) {
               setShowDropDown(false);
             }
           }}
@@ -58,7 +61,7 @@ const SelectInput = ({
           value={value}
           className={`py-3 ${
             error && "border-danger"
-          } px-[44px] w-full border-solid border-[1.5px] placeholder-gray-200 text-dark focus:outline-none focus:bg-[#DDE2E5] focus:border-primary-100 border-gray-2 rounded-[8px] overflow-hidden text-font-light placeholder:font-300`}
+          } px-[44px] w-full border-solid border-[1.5px] placeholder-gray-200 text-dark focus:border-[1px] border-primary focus:outline-none focus:border-primary-100 border-gray-2 rounded-[8px] overflow-hidden text-font-light placeholder:font-300`}
         />
         <span className="absolute inset-y-0 right-3 my-auto text-[12px] text-danger top-[12px]">
           {errorMessage === "Required" ? "Can't be empty" : errorMessage}
@@ -67,12 +70,15 @@ const SelectInput = ({
           <ChevronDown color="#633CFF" />
         </div>
         {error && (
-          <p className="text-danger text-[10px] font-[400]">{label} cannot be empty!</p>
+          <p className="text-danger text-[10px] font-[400]">
+            {label} cannot be empty!
+          </p>
         )}
         {showDropDown && (
           <div
             className={`border-[1px] border-solid border-gray-200 w-full cursor-pointer absolute top-[63px] bg-white rounded-[12px] overflow-hidden`}
             ref={dropDownRef}
+            style={{ zIndex: index }}
           >
             {list.map((item, index) => (
               <div
@@ -84,9 +90,7 @@ const SelectInput = ({
                   setShowDropDown(false);
                 }}
               >
-                <span className="inset-y-0 text-[#939393]">
-                  {leftIcon}
-                </span>
+                <span className="inset-y-0 text-[#939393]">{leftIcon}</span>
                 <p className="rounded-b-[12px] overflow-hidden">{item.text}</p>
               </div>
             ))}

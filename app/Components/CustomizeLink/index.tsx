@@ -41,12 +41,8 @@ const CustomizeLink = () => {
 
   const onSubmitAll: SubmitHandler<FormDataProps> = (data) => {
     data.forms.map((item: any) => {
-      console.log(item);
-      const useRef=doc(db,"users",)
+      const useRef = doc(db, "users");
     });
-    // data.form((item: any) => {
-    //   console.log(item);
-    // });
   };
 
   return (
@@ -55,17 +51,23 @@ const CustomizeLink = () => {
         <PasswordSettingsHeading
           heading="Customize your links"
           subheading="Add/edit/remove links below and then share all your profiles with the world!"
-          addBtn={true}
+          addBtn={false}
         />
+        <div className="mt-[32px] mb-[24px] w-full">
+          <button
+            className="flex items-center justify-center  border-solid border-[1px] border-primary py-2 rounded-[8px] font-[600] text-primary w-full"
+            onClick={() => {
+              addForm();
+            }}
+          >
+            + Add link
+          </button>
+        </div>
         <LinkHeader />
 
         {formCount.map((formId) => (
           <LinkComponent key={formId} formId={formId} />
         ))}
-
-        <button type="button" onClick={addForm}>
-          Add Form
-        </button>
         <button type="button" onClick={methods.handleSubmit(onSubmitAll)}>
           Submit All
         </button>
