@@ -9,7 +9,7 @@ const Preview = () => {
             <h4 className="text-primary font-[600]">Back to Editor</h4>
           </div>
           <div className="flex items-center px-[16px] md:px-[24px] py-[8px] border-solid border-[1px] bg-primary gap-[8px] rounded-[8px]">
-            <h4 className="text-white font-[600]">Back to Editor</h4>
+            <h4 className="text-white font-[600]">Share link</h4>
           </div>
         </div>
       </div>

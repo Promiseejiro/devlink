@@ -1,10 +1,13 @@
 import Image from "next/image";
 import { Link, CircleUser, Eye } from "lucide-react";
 import Logo from "../Logo";
+import { useRouter } from "next/navigation";
 interface HaderProps {
   active: string;
 }
+
 const Header = ({ active }: HaderProps) => {
+  const navigation = useRouter();
   return (
     <div className="md:m-[24px] bg-white p-[24px] rounded-[12px]">
       <div className="flex items-center justify-between">
@@ -13,7 +16,10 @@ const Header = ({ active }: HaderProps) => {
           <div
             className={`flex items-center px-[24px] py-[11px] ${
               active === "Links" && "bg-primary-200"
-            }  gap-[8px] rounded-[8px]`}
+            }  gap-[8px] rounded-[8px] cursor-pointer`}
+            onClick={() => {
+              navigation.push("/");
+            }}
           >
             <Link
               color={active == "Links" ? "#633CFF" : "#737373"}
@@ -26,12 +32,15 @@ const Header = ({ active }: HaderProps) => {
               }  font-[600]`}
             >
               Links
-            </h4>{" "}
+            </h4>
           </div>
           <div
             className={`flex items-center px-[24px] py-[11px]  ${
               active === "Profile Details" && "bg-primary-200"
-            } gap-[8px] rounded-[8px]`}
+            } gap-[8px] rounded-[8px] cursor-pointer`}
+            onClick={() => {
+              navigation.push("/profile");
+            }}
           >
             <CircleUser
               color={active == "Profile Details" ? "#633CFF" : "#737373"}
@@ -47,7 +56,12 @@ const Header = ({ active }: HaderProps) => {
             </h4>
           </div>
         </div>
-        <div className="flex items-center px-[16px] md:px-[24px] py-[8px] border-solid border-[1px] border-primary gap-[8px] rounded-[8px]">
+        <div
+          className="flex items-center px-[16px] md:px-[24px] py-[8px] border-solid border-[1px] border-primary gap-[8px] rounded-[8px] cursor-pointer"
+          onClick={() => {
+            navigation.push("/preview");
+          }}
+        >
           <h4 className="text-primary font-[600] hidden md:block">Preview</h4>
           <span className="block md:hidden">
             <Eye color="#633CFF" />

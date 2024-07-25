@@ -38,7 +38,7 @@ const CreateAccount = () => {
   const cureentUser = useAuth();
   console.log(cureentUser);
   if (cureentUser) {
-    navigate.push("/links");
+    navigate.push("/");
   }
   const {
     control,

@@ -1,14 +1,47 @@
 "use client";
-import Image from "next/image";
 import Header from "./Components/NavHeader";
 import rec from "../public/asset/rec.svg";
 import subStr from "../public/asset/Subtract.svg";
 import Profile from "./Components/Profile";
-import ProfileDetails from "./Components/ProfileDetails";
+import CustomizeLink from "./Components/CustomizeLink";
+import { useAuth } from "@/context/AuthContext";
+import Image from "next/image";
+import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { db } from "@/firebase";
 export default function Home() {
+  const navigator = useRouter();
+  const cureentUser: any = useAuth();
+  const getData = async () => {
+    if (cureentUser) {
+      try {
+        if (cureentUser?.cureentUser) {
+          const docRef = doc(db, "users", cureentUser.cureentUser.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+          } else {
+            console.log("No such document!");
+          }
+        } else {
+          console.log("No user logged in");
+        }
+      } catch (error) {
+        console.error("Error fetching document:", error);
+      }
+      console.log(cureentUser);
+    } else {
+      navigator.push("login");
+    }
+  };
+
+  useEffect(() => {}, [cureentUser]);
+
   return (
     <div className="bg-gray-300 ">
-      <Header active="Profile Details" />
+      <Header active="Links" />
       <div className="lg:flex w-full gap-[20px] p-[24px]">
         <div className="hidden lg:block w-[40%]">
           <div className="flex items-center justify-center  bg-white pt-[100px]">
@@ -23,8 +56,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <ProfileDetails />
-        {/* <CustomizeLink /> */}
+        <CustomizeLink />
       </div>
     </div>
   );

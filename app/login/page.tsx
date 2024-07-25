@@ -25,7 +25,7 @@ const Login = () => {
   const func = useAuth();
 
   if (func?.currentUser) {
-    navigate.push("/links");
+    navigate.push("/");
   }
   const {
     control,

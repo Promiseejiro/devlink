@@ -3,6 +3,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import { CircleUser } from "lucide-react";
 import Input from "../Input";
 import SelectInput from "../SelectInput";
+import LinkHeader from "../LinkHeader";
 
 interface LinkComponentProps {
   formId: number;
@@ -12,12 +13,14 @@ const LinkComponent: React.FC<LinkComponentProps> = ({ formId }) => {
   const {
     control,
     formState: { errors },
-  }:any = useFormContext();
+  }: any = useFormContext();
   const platformError = errors?.forms?.[formId]?.platform;
   const linkError = errors?.forms?.[formId]?.link;
 
   return (
     <div className="p-[20px] bg-gray-300 rounded-[8px] mb-4">
+      <LinkHeader />
+
       <Controller
         name={`forms.${formId}.platform`}
         control={control}

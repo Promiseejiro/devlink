@@ -6,11 +6,14 @@ import subStr from "../../public/asset/Subtract.svg";
 import Profile from "../Components/Profile";
 import CustomizeLink from "../Components/CustomizeLink";
 import { useAuth } from "@/context/AuthContext";
+
+import { useEffect } from "react";
 export default function Home() {
   const cureentUser: any = useAuth();
   if (cureentUser) {
-    // console.log(cureentUser.currentUser.email);
   }
+
+
   return (
     <div className="bg-gray-300 ">
       <Header active="Profile Details" />

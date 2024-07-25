@@ -22,12 +22,11 @@ export default function Home() {
                 src={subStr}
                 className="w-[283px] h-auto absolute top-[10px] left-[10px]"
               />
-              <Profile />
+              <Profile absolute={true} />
             </div>
           </div>
         </div>
         <ProfileDetails />
-        {/* <CustomizeLink /> */}
       </div>
     </div>
   );

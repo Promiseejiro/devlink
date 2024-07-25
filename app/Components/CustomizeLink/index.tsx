@@ -11,7 +11,18 @@ import PasswordSettingsHeading from "../LinkesHeader";
 import LinkHeader from "../LinkHeader";
 import LinkComponent from "../LinkComponent";
 import { db } from "@/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { useAuth } from "@/context/AuthContext";
+function generateRandomId(length: any = 8) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+}
 const createAccountSchema = z.object({
   forms: z.array(
     z.object({
@@ -24,6 +35,7 @@ const createAccountSchema = z.object({
 type FormDataProps = z.infer<typeof createAccountSchema>;
 
 const CustomizeLink = () => {
+  const func = useAuth();
   const [formCount, setFormCount] = useState<number[]>([0]);
   const methods = useForm<FormDataProps>({
     resolver: zodResolver(createAccountSchema),
@@ -40,8 +52,18 @@ const CustomizeLink = () => {
   };
 
   const onSubmitAll: SubmitHandler<FormDataProps> = (data) => {
-    data.forms.map((item: any) => {
-      const useRef = doc(db, "users");
+    console.log(func?.currentUser?.uid);
+    data.forms.map(async (item: any, index: number) => {
+      const key = generateRandomId();
+      const userRef = doc(db, "users", func?.currentUser?.uid);
+      try {
+        await updateDoc(userRef, {
+          links: arrayUnion({ key, item }),
+        });
+        console.log("Link added successfully");
+      } catch (error) {
+        console.error("Error adding link: ", error);
+      }
     });
   };
 
