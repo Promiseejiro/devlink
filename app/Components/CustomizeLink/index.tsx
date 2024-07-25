@@ -55,14 +55,17 @@ const CustomizeLink = () => {
     console.log(func?.currentUser?.uid);
     data.forms.map(async (item: any, index: number) => {
       const key = generateRandomId();
-      const userRef = doc(db, "users", func?.currentUser?.uid);
-      try {
-        await updateDoc(userRef, {
-          links: arrayUnion({ key, item }),
-        });
-        console.log("Link added successfully");
-      } catch (error) {
-        console.error("Error adding link: ", error);
+      let userRef;
+      if (func?.currentUser?.uid) {
+        userRef = doc(db, "users", func?.currentUser?.uid);
+        try {
+          await updateDoc(userRef, {
+            links: arrayUnion({ key, item }),
+          });
+          console.log("Link added successfully");
+        } catch (error) {
+          console.error("Error adding link: ", error);
+        }
       }
     });
   };
